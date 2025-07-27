@@ -123,9 +123,9 @@ interface CollectionStats {
 }
 
 const API_URL = window.cordova
-  ? 'https://readersdenlibrary.onrender.com/api'
+  ? 'https://shivlibrary-7kkn.onrender.com/api'
   : process.env.NODE_ENV === 'production'
-    ? 'https://readersdenlibrary.onrender.com/api'
+    ? 'https://shivlibrary-7kkn.onrender.com/api'
     : 'http://localhost:3000/api';
 
 const apiClient = axios.create({

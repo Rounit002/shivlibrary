@@ -34,7 +34,7 @@ app.use(cors({
   origin: function (origin, callback) {
     const allowedOrigins = [
       'http://localhost:8080',
-      'https://readersdenlibrary.onrender.com',
+      'https://shivlibrary-7kkn.onrender.com',
       'file://'
     ];
     if (!origin || allowedOrigins.includes(origin)) {
