@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import api from '../services/api';
+import imageCompression from 'browser-image-compression';
 
 // This interface now correctly defines `code` as optional
 interface Branch {
@@ -19,6 +20,9 @@ interface FormData {
   father_name: string;
   aadhar_number: string;
   registration_number: string;
+  image: File | null;
+  aadhaarFront: File | null;
+  aadhaarBack: File | null;
 }
 
 const PublicStudentRegistration: React.FC = () => {
@@ -30,7 +34,10 @@ const PublicStudentRegistration: React.FC = () => {
     address: '',
     father_name: '',
     aadhar_number: '',
-    registration_number: ''
+    registration_number: '',
+    image: null,
+    aadhaarFront: null,
+    aadhaarBack: null
   });
   // The state now uses the correct Branch interface
   const [branches, setBranches] = useState<Branch[]>([]);
@@ -63,7 +70,37 @@ const PublicStudentRegistration: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+      const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>, field: 'image' | 'aadhaarFront' | 'aadhaarBack') => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (!file) return;
+
+    if (!['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(file.type)) {
+      toast.error('Only JPEG, JPG, PNG, and GIF images are allowed.');
+      return;
+    }
+
+    const options = {
+      maxSizeMB: 0.2, // 200KB
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    try {
+      const compressedFileBlob = await imageCompression(file, options);
+      const compressedFile = new File([compressedFileBlob], file.name, {
+        type: compressedFileBlob.type,
+        lastModified: Date.now(),
+      });
+
+      setFormData(prev => ({ ...prev, [field]: compressedFile }));
+      toast.success(`${field} image compressed and ready!`);
+    } catch (error) {
+      toast.error('Image compression failed. Please try another image.');
+      console.error(error);
+    }
+  };
+
+    const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.branch_id) {
       toast.error('Please fill in all required fields: Name, Phone, and Branch');
@@ -71,16 +108,51 @@ const PublicStudentRegistration: React.FC = () => {
     }
 
     setIsLoading(true);
+
+    // Corrected: Use the new public image upload function
+    const uploadImage = async (file: File) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      // Use the new public upload function
+      const response = await api.uploadPublicImage(formData);
+      return response.imageUrl;
+    };
+
     try {
+      const [profileImageUrl, aadhaarFrontUrl, aadhaarBackUrl] = await Promise.all([
+        formData.image ? uploadImage(formData.image) : Promise.resolve(undefined),
+        formData.aadhaarFront ? uploadImage(formData.aadhaarFront) : Promise.resolve(undefined),
+        formData.aadhaarBack ? uploadImage(formData.aadhaarBack) : Promise.resolve(undefined),
+      ]);
+      
+      // Corrected: The keys here are camelCase, the api.ts interceptor will handle conversion
       await api.registerPublicStudent({
-        ...formData,
-        branch_id: parseInt(formData.branch_id, 10)
+        name: formData.name,
+        phone: formData.phone,
+        branchId: parseInt(formData.branch_id, 10),
+        email: formData.email,
+        address: formData.address,
+        fatherName: formData.father_name,
+        aadharNumber: formData.aadhar_number,
+        registrationNumber: formData.registration_number,
+        profileImageUrl,
+        aadhaarFrontUrl,
+        aadhaarBackUrl,
       });
+
       toast.success('Registration successful! Thank you.');
-      // This now correctly resets the form, including the default branch
       setFormData({
-        name: '', phone: '', branch_id: branches.length > 0 ? branches[0].id.toString() : '', email: '',
-        address: '', father_name: '', aadhar_number: '', registration_number: ''
+        name: '',
+        phone: '',
+        branch_id: branches.length > 0 ? branches[0].id.toString() : '',
+        email: '',
+        address: '',
+        father_name: '',
+        aadhar_number: '',
+        registration_number: '',
+        image: null,
+        aadhaarFront: null,
+        aadhaarBack: null,
       });
     } catch (error: any) {
       const errorMsg = error.message || 'Registration failed. Please try again.';
@@ -211,6 +283,42 @@ const PublicStudentRegistration: React.FC = () => {
                 onChange={handleChange}
                 className={inputStyles}
               />
+            </div>
+
+                        <div>
+              <label className={labelStyles}>Profile Picture</label>
+              <input
+                type="file"
+                name="image"
+                onChange={(e) => handleImageChange(e, 'image')}
+                className={`${inputStyles} file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100`}
+                accept="image/png, image/jpeg, image/gif"
+              />
+              {formData.image && <p className="mt-2 text-sm text-gray-500">{formData.image.name}</p>}
+            </div>
+
+            <div>
+              <label className={labelStyles}>Aadhaar Front</label>
+              <input
+                type="file"
+                name="aadhaarFront"
+                onChange={(e) => handleImageChange(e, 'aadhaarFront')}
+                className={`${inputStyles} file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100`}
+                accept="image/png, image/jpeg, image/gif"
+              />
+              {formData.aadhaarFront && <p className="mt-2 text-sm text-gray-500">{formData.aadhaarFront.name}</p>}
+            </div>
+
+            <div>
+              <label className={labelStyles}>Aadhaar Back</label>
+              <input
+                type="file"
+                name="aadhaarBack"
+                onChange={(e) => handleImageChange(e, 'aadhaarBack')}
+                className={`${inputStyles} file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100`}
+                accept="image/png, image/jpeg, image/gif"
+              />
+              {formData.aadhaarBack && <p className="mt-2 text-sm text-gray-500">{formData.aadhaarBack.name}</p>}
             </div>
           </div>
 

@@ -1189,3 +1189,60 @@
 {"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-27T07:18:33.511Z"}
 {"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-27T07:18:33.518Z"}
 {"level":"info","message":"Server running on port 3000","timestamp":"2025-07-27T07:18:33.546Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-27T07:40:13.555Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-27T07:40:13.582Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-27T07:40:13.597Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-27T07:40:13.632Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T19:09:27.491Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T19:09:27.564Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T19:09:27.603Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T19:09:27.699Z"}
+{"level":"error","message":"Unhandled error: Only images (jpeg, jpg, png, gif) are allowed","method":"POST","path":"/api/upload-image","stack":"Error: Only images (jpeg, jpg, png, gif) are allowed\n    at fileFilter (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\server.js:106:10)\n    at wrappedFileFilter (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\multer\\index.js:44:7)\n    at Multipart.<anonymous> (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\multer\\lib\\make-middleware.js:109:7)\n    at Multipart.emit (node:events:519:28)\n    at HeaderParser.cb (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:358:14)\n    at HeaderParser.push (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:162:20)\n    at SBMH.ssCb [as _cb] (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:394:37)\n    at feed (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\streamsearch\\lib\\sbmh.js:248:10)\n    at SBMH.push (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\streamsearch\\lib\\sbmh.js:104:16)\n    at Multipart._write (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:567:19)","timestamp":"2025-07-31T19:32:02.183Z"}
+{"level":"error","message":"Unhandled error: Only images (jpeg, jpg, png, gif) are allowed","method":"POST","path":"/api/upload-image","stack":"Error: Only images (jpeg, jpg, png, gif) are allowed\n    at fileFilter (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\server.js:106:10)\n    at wrappedFileFilter (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\multer\\index.js:44:7)\n    at Multipart.<anonymous> (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\multer\\lib\\make-middleware.js:109:7)\n    at Multipart.emit (node:events:519:28)\n    at HeaderParser.cb (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:358:14)\n    at HeaderParser.push (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:162:20)\n    at SBMH.ssCb [as _cb] (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:394:37)\n    at feed (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\streamsearch\\lib\\sbmh.js:248:10)\n    at SBMH.push (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\streamsearch\\lib\\sbmh.js:104:16)\n    at Multipart._write (D:\\WebDevelopment\\ShivLibraryBGP\\Backend\\node_modules\\busboy\\lib\\types\\multipart.js:567:19)","timestamp":"2025-07-31T19:33:52.062Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T19:34:00.911Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T19:34:00.960Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T19:34:00.982Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T19:34:01.129Z"}
+{"imageUrl":"https://res.cloudinary.com/dzjzyclid/image/upload/v1753990474/student_profiles/w2ugmga8ptjwxcwh9xjj.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:34:35.922Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T19:39:13.117Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T19:39:13.250Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T19:39:13.275Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T19:39:13.331Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753990817/student_profiles/af1bjilenkm88imtsgzj.jpg","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:40:18.231Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753990858/student_profiles/i62inwtdfjs62hrgafaj.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:40:59.218Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753991087/student_profiles/qy05lyynpmgcrnenvaq9.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:44:47.937Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753991286/student_profiles/g3xuld7uychkf2kkxdoe.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:48:06.927Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753991286/student_profiles/pncpgzu1oxsa5tyakwgb.jpg","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:48:07.045Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T19:48:49.235Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T19:48:49.259Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T19:48:49.277Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T19:48:49.329Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753991426/student_profiles/m877pxaiw0vyjrwslua8.jpg","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:50:27.261Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753991427/student_profiles/i4nzrsyhy7romojghpdz.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T19:50:28.033Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T19:59:02.897Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T19:59:02.932Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T19:59:02.948Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T19:59:03.004Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753992063/student_profiles/eqlksmpbv2k8rzpifbgz.jpg","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T20:01:04.132Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753992063/student_profiles/lj5m30cg9gpqfovs1ayd.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T20:01:04.417Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T20:04:49.786Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T20:04:49.809Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T20:04:49.823Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T20:04:49.878Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753992455/student_profiles/wvkhptilriw3s0asxdrt.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T20:07:36.565Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T20:14:05.340Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T20:14:05.377Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T20:14:05.402Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T20:14:05.455Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753992934/student_profiles/u0qianzlse6agxocvera.jpg","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T20:15:34.731Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T20:35:14.220Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T20:35:14.252Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T20:35:14.273Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T20:35:14.304Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753994175/student_profiles/ob9xttgwgjyzob8aemax.jpg","level":"info","message":"Image uploaded successfully to Cloudinary via public endpoint","timestamp":"2025-07-31T20:36:16.154Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753994175/student_profiles/hltts9des6sftixfsjbt.png","level":"info","message":"Image uploaded successfully to Cloudinary via public endpoint","timestamp":"2025-07-31T20:36:16.280Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-07-31T20:45:18.743Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-07-31T20:45:18.770Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T20:45:18.788Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T20:45:18.817Z"}
+{"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753995574/student_profiles/imbjz2vu9lvwevzwjuv4.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T20:59:35.060Z"}

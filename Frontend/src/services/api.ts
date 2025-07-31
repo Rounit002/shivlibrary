@@ -391,6 +391,17 @@ const api = {
     }
   },
 
+  uploadPublicImage: async (imageData: FormData) => {
+    try {
+      const response = await apiClient.post('/public/upload-image', imageData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+
   uploadImage: async (imageData: FormData) => {
     try {
       const response = await apiClient.post('/upload-image', imageData, {
@@ -953,10 +964,13 @@ const api = {
     email: string;
     phone: string;
     address: string;
-    branch_id: number;
-    registration_number?: string;
-    father_name?: string;
-    aadhar_number?: string;
+    branchId: number;
+    registrationNumber?: string;
+    fatherName?: string;
+    aadharNumber?: string;
+    profileImageUrl?: string;
+    aadhaarFrontUrl?: string;
+    aadhaarBackUrl?: string;
   }) => {
     const response = await apiClient.post('/students/public/register', studentData);
     return response.data;

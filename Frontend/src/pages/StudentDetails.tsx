@@ -190,146 +190,167 @@ const StudentDetails: React.FC = () => {
                 </div>
 
                 <h1 className="text-2xl font-bold text-gray-800 mb-6 no-print">Student Details</h1>
-
-                {student.profileImageUrl && (
-                  <div className="mb-6">
-                    <h2 className="text-lg font-medium mb-2">Profile Image</h2>
-                    <img src={student.profileImageUrl} alt="Profile" className="w-32 h-32 object-cover rounded-full" />
-                  </div>
-                )}
-                {student.aadhaarFrontUrl && (
-                  <div className="mb-6">
-                    <h2 className="text-lg font-medium mb-2">Aadhaar Front Image</h2>
-                    <img src={student.aadhaarFrontUrl} alt="Aadhaar Front" className="w-32 h-32 object-cover rounded" />
-                  </div>
-                )}
-                {student.aadhaarBackUrl && (
-                  <div className="mb-6">
-                    <h2 className="text-lg font-medium mb-2">Aadhaar Back Image</h2>
-                    <img src={student.aadhaarBackUrl} alt="Aadhaar Back" className="w-32 h-32 object-cover rounded" />
-                  </div>
-                )}
+                
                 <img
                   src={ShivLibraryBanner}
                   alt="SDM Library Logo"
                   className="print-logo hidden print:block"
                 />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h2 className="text-lg font-medium">Name</h2>
-                    <p className="text-gray-600">{student.name || 'Unknown'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Registration Number</h2>
-                    <p className="text-gray-600">{student.registrationNumber || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Father's Name</h2>
-                    <p className="text-gray-600">{student.fatherName || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Aadhar Number</h2>
-                    <p className="text-gray-600">{student.aadharNumber || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Email</h2>
-                    <p className="text-gray-600">{student.email || 'Unknown'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Phone</h2>
-                    <p className="text-gray-600">{student.phone || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Address</h2>
-                    <p className="text-gray-600">{student.address || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Branch</h2>
-                    <p className="text-gray-600">{student.branchName || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Status</h2>
-                    <p className={`inline-block px-2 py-1 rounded-full text-xs ${student.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                      {student.status === 'active' ? 'Active' : 'Expired'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Membership Start</h2>
-                    <p className="text-gray-600">{formatDate(student.membershipStart)}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Membership End</h2>
-                    <p className="text-gray-600">{formatDate(student.membershipEnd)}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Seat Number</h2>
-                    <p className="text-gray-600">{seatNumber}</p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Locker Number</h2>
-                    <p className="text-gray-600">{student.lockerNumber || 'None'}</p>
-                  </div>
-                  <div className="col-span-1">
-                    <h2 className="text-lg font-medium">Assigned Shifts</h2>
-                    {student.assignments && student.assignments.length > 0 ? (
-                      <ul className="list-disc list-inside text-gray-600">
-                        {student.assignments.map(assignment => (
-                          <li key={assignment.shiftId}>{assignment.shiftTitle}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-gray-600">No shifts assigned</p>
+
+                {/* Main container for details and images */}
+                <div className="flex flex-col md:flex-row gap-8">
+                  
+                  {/* Left side: Student Info */}
+                  <div className="flex-grow">
+                    {student.profileImageUrl && (
+                      <div className="mb-6">
+                        <img src={student.profileImageUrl} alt="Profile" className="w-32 h-32 object-cover rounded-full shadow-md" />
+                      </div>
                     )}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h2 className="text-lg font-medium">Name</h2>
+                        <p className="text-gray-600">{student.name || 'Unknown'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Registration Number</h2>
+                        <p className="text-gray-600">{student.registrationNumber || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Father's Name</h2>
+                        <p className="text-gray-600">{student.fatherName || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Aadhar Number</h2>
+                        <p className="text-gray-600">{student.aadharNumber || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Email</h2>
+                        <p className="text-gray-600">{student.email || 'Unknown'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Phone</h2>
+                        <p className="text-gray-600">{student.phone || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Address</h2>
+                        <p className="text-gray-600">{student.address || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Branch</h2>
+                        <p className="text-gray-600">{student.branchName || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Status</h2>
+                        <p className={`inline-block px-2 py-1 rounded-full text-xs ${student.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                          {student.status === 'active' ? 'Active' : 'Expired'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Membership Start</h2>
+                        <p className="text-gray-600">{formatDate(student.membershipStart)}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Membership End</h2>
+                        <p className="text-gray-600">{formatDate(student.membershipEnd)}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Seat Number</h2>
+                        <p className="text-gray-600">{seatNumber}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Locker Number</h2>
+                        <p className="text-gray-600">{student.lockerNumber || 'None'}</p>
+                      </div>
+                      <div className="col-span-1">
+                        <h2 className="text-lg font-medium">Assigned Shifts</h2>
+                        {student.assignments && student.assignments.length > 0 ? (
+                          <ul className="list-disc list-inside text-gray-600">
+                            {student.assignments.map(assignment => (
+                              <li key={assignment.shiftId}>{assignment.shiftTitle}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-gray-600">No shifts assigned</p>
+                        )}
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Total Fee</h2>
+                        <p className="text-gray-600">
+                          {student.totalFee !== undefined && student.totalFee !== null ? `Rs. ${student.totalFee.toFixed(2)}` : 'N/A'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Amount Paid</h2>
+                        <p className="text-gray-600">
+                          {student.amountPaid !== undefined && student.amountPaid !== null ? `Rs. ${student.amountPaid.toFixed(2)}` : 'N/A'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Due Amount</h2>
+                        <p className="text-gray-600">
+                          {student.dueAmount !== undefined && student.dueAmount !== null ? `Rs. ${student.dueAmount.toFixed(2)}` : 'N/A'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Cash Payment</h2>
+                        <p className="text-gray-600">
+                          {student.cash !== undefined && student.cash !== null ? `Rs. ${student.cash.toFixed(2)}` : 'N/A'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Online Payment</h2>
+                        <p className="text-gray-600">
+                          {student.online !== undefined && student.online !== null ? `Rs. ${student.online.toFixed(2)}` : 'N/A'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Security Money</h2>
+                        <p className="text-gray-600">
+                          {student.securityMoney !== undefined && student.securityMoney !== null ? `Rs. ${student.securityMoney.toFixed(2)}` : 'N/A'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Discount</h2>
+                        <p className="text-gray-600">
+                          {student.discount !== undefined && student.discount !== null ? `Rs. ${student.discount.toFixed(2)}` : 'N/A'}
+                        </p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Created At</h2>
+                        <p className="text-gray-600">{formatDate(student.createdAt)}</p>
+                      </div>
+                      <div className="col-span-2">
+                        <h2 className="text-lg font-medium">Remark</h2>
+                        <p className="text-gray-600">{student.remark || 'N/A'}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Total Fee</h2>
-                    <p className="text-gray-600">
-                      {student.totalFee !== undefined && student.totalFee !== null ? `Rs. ${student.totalFee.toFixed(2)}` : 'N/A'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Amount Paid</h2>
-                    <p className="text-gray-600">
-                      {student.amountPaid !== undefined && student.amountPaid !== null ? `Rs. ${student.amountPaid.toFixed(2)}` : 'N/A'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Due Amount</h2>
-                    <p className="text-gray-600">
-                      {student.dueAmount !== undefined && student.dueAmount !== null ? `Rs. ${student.dueAmount.toFixed(2)}` : 'N/A'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Cash Payment</h2>
-                    <p className="text-gray-600">
-                      {student.cash !== undefined && student.cash !== null ? `Rs. ${student.cash.toFixed(2)}` : 'N/A'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Online Payment</h2>
-                    <p className="text-gray-600">
-                      {student.online !== undefined && student.online !== null ? `Rs. ${student.online.toFixed(2)}` : 'N/A'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Security Money</h2>
-                    <p className="text-gray-600">
-                      {student.securityMoney !== undefined && student.securityMoney !== null ? `Rs. ${student.securityMoney.toFixed(2)}` : 'N/A'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Discount</h2> {/* Added discount field */}
-                    <p className="text-gray-600">
-                      {student.discount !== undefined && student.discount !== null ? `Rs. ${student.discount.toFixed(2)}` : 'N/A'}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-medium">Created At</h2>
-                    <p className="text-gray-600">{formatDate(student.createdAt)}</p>
-                  </div>
-                  <div className="col-span-2">
-                    <h2 className="text-lg font-medium">Remark</h2>
-                    <p className="text-gray-600">{student.remark || 'N/A'}</p>
+
+                  {/* Right side: Aadhaar Images */}
+                  <div className="flex-shrink-0 w-full md:w-64">
+                    <div className="space-y-4">
+                      {student.aadhaarFrontUrl && (
+                        <div>
+                          <h3 className="text-lg font-medium mb-2">Aadhaar Front</h3>
+                          <img 
+                            src={student.aadhaarFrontUrl} 
+                            alt="Aadhaar Front" 
+                            className="w-full h-auto object-cover rounded-lg border border-gray-300 shadow-md"
+                          />
+                        </div>
+                      )}
+                      {student.aadhaarBackUrl && (
+                        <div>
+                          <h3 className="text-lg font-medium mb-2">Aadhaar Back</h3>
+                          <img 
+                            src={student.aadhaarBackUrl} 
+                            alt="Aadhaar Back" 
+                            className="w-full h-auto object-cover rounded-lg border border-gray-300 shadow-md"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 

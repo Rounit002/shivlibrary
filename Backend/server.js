@@ -133,6 +133,41 @@ if (typeof checkPermission !== 'function') {
 
 const authRoutes = authRouterFactory(pool);
 
+// New public route for image uploads from the registration form
+app.post('/api/public/upload-image', upload.single('image'), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) return res.status(400).json({ message: 'No file uploaded' });
+
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { resource_type: 'image', folder: 'student_profiles' },
+        (error, uploadResult) => {
+          if (error) return reject(error);
+          resolve(uploadResult);
+        }
+      );
+      stream.end(file.buffer);
+    });
+
+    if (!result || !result.secure_url) {
+      logger.error('Cloudinary upload failed, no secure_url returned:', result);
+      return res.status(500).json({ message: 'Image upload failed with Cloudinary' });
+    }
+
+    logger.info('Image uploaded successfully to Cloudinary via public endpoint', { imageUrl: result.secure_url });
+    res.json({ imageUrl: result.secure_url });
+  } catch (error) {
+    logger.error('Error uploading image to Cloudinary via public endpoint:', {
+      message: error.message,
+      stack: error.stack,
+    });
+    res.status(500).json({ message: 'Server error during image upload', error: error.message });
+  }
+});
+
+
+// Protected route for image uploads by authenticated users
 app.post('/api/upload-image', authenticateUser, checkPermission('manage_library_students'), upload.single('image'), async (req, res) => {
   try {
     const file = req.file;
