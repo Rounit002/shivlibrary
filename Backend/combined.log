@@ -1246,3 +1246,15 @@
 {"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-07-31T20:45:18.788Z"}
 {"level":"info","message":"Server running on port 3000","timestamp":"2025-07-31T20:45:18.817Z"}
 {"imageUrl":"https://res.cloudinary.com/dez6yjhrb/image/upload/v1753995574/student_profiles/imbjz2vu9lvwevzwjuv4.png","level":"info","message":"Image uploaded successfully to Cloudinary","timestamp":"2025-07-31T20:59:35.060Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-08-04T04:46:55.773Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-08-04T04:46:55.816Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-08-04T04:46:55.864Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-08-04T04:46:56.010Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-08-04T05:23:54.118Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-08-04T05:23:54.170Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-08-04T05:23:54.194Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-08-04T05:23:54.273Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-08-04T05:23:56.590Z"}
+{"level":"info","message":"Session table checked/initialized successfully","timestamp":"2025-08-04T05:23:56.618Z"}
+{"level":"info","message":"Admin user(s) already exist, skipping default admin creation.","timestamp":"2025-08-04T05:23:56.630Z"}
+{"level":"info","message":"Server running on port 3000","timestamp":"2025-08-04T05:23:56.683Z"}

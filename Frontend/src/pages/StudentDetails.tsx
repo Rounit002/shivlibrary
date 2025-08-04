@@ -6,6 +6,7 @@ import api from '../services/api';
 import { toast } from 'sonner';
 import { Trash2, ArrowLeft, Edit, Printer } from 'lucide-react';
 import ShivLibraryBanner from "./ShivLibraryBanner.png";
+import SignatureDirector from "./SignatureDirector.jpg";
 
 interface Student {
   id: number;
@@ -323,6 +324,20 @@ const StudentDetails: React.FC = () => {
                       <div className="col-span-2">
                         <h2 className="text-lg font-medium">Remark</h2>
                         <p className="text-gray-600">{student.remark || 'N/A'}</p>
+                      </div>
+                       <div className="col-span-2">
+                        <hr style={{ backgroundColor: 'black', height: '2px', border: 'none' }} />
+                        <h2 className="text-lg font-medium">Declaration:</h2>
+                        <p className="text-lg text-black-700">I hereby declare that the information given by me in this form is true, complete and correct to the best of my knowledge and belief.</p>
+                      </div>
+                      <div className="col-span-2">
+                        <h2 className="text-lg text-gray-100 font-small">.</h2> 
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Director Signature:<img src={SignatureDirector} alt="SDM Library Logo" className="max-w-[150px]" /> </h2> 
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Student  Signature:</h2> 
                       </div>
                     </div>
                   </div>
