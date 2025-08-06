@@ -30,6 +30,7 @@ interface Student {
   securityMoney: number;
   discount?: number | null; // Added discount field
   remark?: string | null;
+  preparingFor?: string | null;
   profileImageUrl?: string | null;
   aadhaarFrontUrl?: string | null;
   aadhaarBackUrl?: string | null;
@@ -218,6 +219,10 @@ const StudentDetails: React.FC = () => {
                         <p className="text-gray-600">{student.registrationNumber || 'N/A'}</p>
                       </div>
                       <div>
+                        <h2 className="text-lg font-medium">Preparing For</h2>
+                        <p className="text-gray-600">{student.preparingFor || 'N/A'}</p>
+                      </div>
+                      <div>
                         <h2 className="text-lg font-medium">Father's Name</h2>
                         <p className="text-gray-600">{student.fatherName || 'N/A'}</p>
                       </div>
@@ -262,6 +267,10 @@ const StudentDetails: React.FC = () => {
                       <div>
                         <h2 className="text-lg font-medium">Locker Number</h2>
                         <p className="text-gray-600">{student.lockerNumber || 'None'}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-medium">Preparing For</h2>
+                        <p className="text-gray-600">{student.preparingFor || 'N/A'}</p>
                       </div>
                       <div className="col-span-1">
                         <h2 className="text-lg font-medium">Assigned Shifts</h2>

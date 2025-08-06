@@ -26,8 +26,9 @@ interface Student {
   cash: number;
   online: number;
   securityMoney: number;
-  discount: number;
+  discount?: number | null;
   remark: string | null;
+  preparingFor?: string | null;
   profileImageUrl?: string | null;
   aadhaarFrontUrl?: string | null;
   aadhaarBackUrl?: string | null;
@@ -97,6 +98,7 @@ interface FormData {
   securityMoney: string;
   remark: string;
   discount: string;
+  preparingFor?: string;
   profileImage: File | null;
   profileImageUrl: string;
   aadhaarFrontImage: File | null;
@@ -126,6 +128,7 @@ interface UpdateStudentPayload {
   online: number;
   securityMoney: number;
   remark: string;
+  preparingFor: string;
   profileImageUrl: string;
   aadhaarFrontUrl: string;
   aadhaarBackUrl: string;
@@ -154,6 +157,7 @@ const EditStudentForm: React.FC = () => {
     securityMoney: '',
     remark: '',
     discount: '0',
+    preparingFor: '',
     profileImage: null,
     profileImageUrl: '',
     aadhaarFrontImage: null,
@@ -207,6 +211,7 @@ const EditStudentForm: React.FC = () => {
           securityMoney: student.securityMoney.toString(),
           discount: student.discount ? student.discount.toString() : '0',
           remark: student.remark || '',
+          preparingFor: student.preparingFor || '',
           profileImage: null,
           profileImageUrl: student.profileImageUrl || '',
           aadhaarFrontImage: null,
@@ -379,6 +384,7 @@ const EditStudentForm: React.FC = () => {
         online: parseFloat(formData.online) || 0,
         securityMoney: parseFloat(formData.securityMoney) || 0,
         remark: formData.remark || '',
+        preparingFor: formData.preparingFor || '',
         profileImageUrl: profileImageUrl || '',
         aadhaarFrontUrl: aadhaarFrontUrl || '',
         aadhaarBackUrl: aadhaarBackUrl || '',
@@ -686,6 +692,17 @@ const EditStudentForm: React.FC = () => {
             value={dueAmount.toFixed(2)}
             readOnly
             className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100"
+          />
+        </div>
+        <div>
+          <label htmlFor="preparingFor" className="block text-sm font-medium text-gray-700 mb-1">Preparing For</label>
+          <input
+            type="text"
+            id="preparingFor"
+            name="preparingFor"
+            value={formData.preparingFor || ''}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
         </div>
         <div>

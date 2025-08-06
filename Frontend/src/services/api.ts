@@ -971,6 +971,7 @@ const api = {
     profileImageUrl?: string;
     aadhaarFrontUrl?: string;
     aadhaarBackUrl?: string;
+    preparingFor?: string;
   }) => {
     const response = await apiClient.post('/students/public/register', studentData);
     return response.data;

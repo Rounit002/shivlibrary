@@ -20,6 +20,7 @@ interface FormData {
   father_name: string;
   aadhar_number: string;
   registration_number: string;
+  preparingFor?: string;
   image: File | null;
   aadhaarFront: File | null;
   aadhaarBack: File | null;
@@ -35,6 +36,7 @@ const PublicStudentRegistration: React.FC = () => {
     father_name: '',
     aadhar_number: '',
     registration_number: '',
+    preparingFor: '',
     image: null,
     aadhaarFront: null,
     aadhaarBack: null
@@ -125,7 +127,8 @@ const PublicStudentRegistration: React.FC = () => {
         formData.aadhaarBack ? uploadImage(formData.aadhaarBack) : Promise.resolve(undefined),
       ]);
       
-      // Corrected: The keys here are camelCase, the api.ts interceptor will handle conversion
+      // ✅ FIX: Added the 'preparingFor' field to the registration data payload.
+      // The api.ts interceptor will handle the conversion from camelCase to snake_case.
       await api.registerPublicStudent({
         name: formData.name,
         phone: formData.phone,
@@ -138,6 +141,7 @@ const PublicStudentRegistration: React.FC = () => {
         profileImageUrl,
         aadhaarFrontUrl,
         aadhaarBackUrl,
+        preparingFor: formData.preparingFor, // This line was added
       });
 
       toast.success('Registration successful! Thank you.');
@@ -150,6 +154,7 @@ const PublicStudentRegistration: React.FC = () => {
         father_name: '',
         aadhar_number: '',
         registration_number: '',
+        preparingFor: '', // Reset the field after submission
         image: null,
         aadhaarFront: null,
         aadhaarBack: null,
@@ -284,13 +289,23 @@ const PublicStudentRegistration: React.FC = () => {
                 className={inputStyles}
               />
             </div>
-
-                        <div>
-              <label className={labelStyles}>Profile Picture</label>
+            
+            <div>
+              <label className={labelStyles}>
+                Preparing For
+              </label>
               <input
-                type="file"
-                name="image"
-                onChange={(e) => handleImageChange(e, 'image')}
+                type="text"
+                name="preparingFor"
+                value={formData.preparingFor || ''}
+                onChange={handleChange}
+                className={inputStyles}
+              />
+            </div>
+
+            <div>
+                <label className={labelStyles}>Profile Picture</label>
+                <input type="file" name="image" onChange={(e) => handleImageChange(e, 'image')}
                 className={`${inputStyles} file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100`}
                 accept="image/png, image/jpeg, image/gif"
               />

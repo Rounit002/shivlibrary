@@ -43,6 +43,7 @@ interface Student {
   securityMoney?: number;
   remark?: string | null;
   profileImageUrl?: string | null;
+  preparingFor?: string | null;
   createdAt?: string;
   assignments?: Array<{
     seatId: number;
@@ -83,6 +84,7 @@ interface RenewStudentPayload {
   securityMoney: number;
   remark?: string;
   discount?: number; // This property is now correctly defined
+  preparingFor?: string;
 }
 
 
@@ -95,8 +97,9 @@ const formatDate = (dateString: string | undefined): string => {
   return new Date(dateString).toISOString().split('T')[0];
 };
 
-const ExpiredMemberships = () => {
+const ExpiredMemberships: React.FC = () => {
   const [students, setStudents] = useState<Student[]>([]);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [renewDialogOpen, setRenewDialogOpen] = useState(false);
@@ -126,6 +129,7 @@ const ExpiredMemberships = () => {
   const [online, setOnline] = useState<string>('');
   const [securityMoney, setSecurityMoney] = useState<string>('');
   const [remark, setRemark] = useState<string>('');
+  const [preparingForInput, setPreparingForInput] = useState<string>('');
   const [discount, setDiscount] = useState<string>('');
 
   const navigate = useNavigate();
@@ -225,6 +229,7 @@ const ExpiredMemberships = () => {
         // FIX: This line will no longer cause an error because 'discount' is in the Student interface
         setDiscount(fullStudentDetails.discount ? fullStudentDetails.discount.toString() : '0');
         setRemark(fullStudentDetails.remark || '');
+        setPreparingForInput(fullStudentDetails.preparingFor || '');
         
         setRenewDialogOpen(true);
     } catch (error) {
@@ -272,6 +277,7 @@ const ExpiredMemberships = () => {
         securityMoney: parseFloat(securityMoney) || 0,
         discount: parseFloat(discount) || 0,
         remark: remark.trim() || undefined,
+        preparingFor: preparingForInput.trim() || undefined,
       };
 
       await api.renewStudent(selectedStudent.id, payload);
@@ -301,7 +307,7 @@ const ExpiredMemberships = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar />
+      <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <div className="flex-1 flex flex-col overflow-y-auto">
         <Navbar />
         <div className="flex-1 p-4">
@@ -424,7 +430,16 @@ const ExpiredMemberships = () => {
                   onChange={(e) => setRegistrationNumberInput(e.target.value)}
                 />
               </div>
-               <div>
+              <div>
+                <label className="block text-sm font-medium">Preparing For</label>
+                <input
+                  className="w-full border rounded px-3 py-2 mt-1"
+                  type="text"
+                  value={preparingForInput}
+                  onChange={(e) => setPreparingForInput(e.target.value)}
+                />
+              </div>
+              <div>
                 <label className="block text-sm font-medium">Father's Name</label>
                 <input
                   className="w-full border rounded px-3 py-2 mt-1"

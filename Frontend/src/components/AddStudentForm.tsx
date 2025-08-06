@@ -74,6 +74,7 @@ interface FormData {
   aadhaarBack: File | null;
   aadhaarBackUrl: string | null;
   discount: string;
+  preparingFor?: string;
 }
 
 const AddStudentForm: React.FC = () => {
@@ -105,6 +106,7 @@ const AddStudentForm: React.FC = () => {
     aadhaarBack: null,
     aadhaarBackUrl: null,
     discount: '0',
+    preparingFor: '',
   });
 
   // State for data fetched from API
@@ -396,6 +398,7 @@ const AddStudentForm: React.FC = () => {
         securityMoney: parseFloat(formData.securityMoney) || 0,
         discount: parseFloat(formData.discount) || 0,
         remark: formData.remark || undefined,
+        preparingFor: formData.preparingFor || undefined,
         profileImageUrl: imageUrl || undefined,
         aadhaarFrontUrl: aadhaarFrontUrl || undefined,
         aadhaarBackUrl: aadhaarBackUrl || undefined,
@@ -705,6 +708,19 @@ const AddStudentForm: React.FC = () => {
             value={dueAmount.toFixed(2)}
             readOnly
             className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100"
+          />
+        </div>
+        <div>
+          <label htmlFor="preparingFor" className="block text-sm font-medium text-gray-700 mb-1">
+            Preparing For
+          </label>
+          <input
+            type="text"
+            id="preparingFor"
+            name="preparingFor"
+            value={formData.preparingFor || ''}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
         </div>
         <div>

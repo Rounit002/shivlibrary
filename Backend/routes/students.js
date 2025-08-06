@@ -11,7 +11,7 @@ module.exports = (pool) => {
       // Extract and validate required fields
       const {
         name, email, phone, address, branch_id, registration_number,
-        father_name, aadhar_number, profile_image_url, aadhaar_front_url, aadhaar_back_url
+        father_name, aadhar_number, profile_image_url, aadhaar_front_url, aadhaar_back_url, preparing_for
       } = req.body;
   
       // Required fields validation
@@ -60,8 +60,8 @@ module.exports = (pool) => {
           name, email, phone, address, branch_id, registration_number,
           father_name, aadhar_number, membership_start, membership_end,
           total_fee, amount_paid, due_amount, cash, online, security_money,
-          discount, is_active, status, created_at, profile_image_url, aadhaar_front_url, aadhaar_back_url, remark
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, NOW(), $20, $21, $22, $23)
+          discount, is_active, status, created_at, profile_image_url, aadhaar_front_url, aadhaar_back_url, remark, preparing_for
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, NOW(), $20, $21, $22, $23, $24)
         RETURNING id`,
         [
           name,
@@ -86,7 +86,8 @@ module.exports = (pool) => {
           profile_image_url || null,
           aadhaar_front_url || null,
           aadhaar_back_url || null,
-          'SELF REGISTERED' // Corrected: Add remark for student
+          'SELF REGISTERED', // Corrected: Add remark for student
+          preparing_for || null
         ]
       );
   
@@ -102,8 +103,8 @@ module.exports = (pool) => {
           seat_id, shift_id, branch_id,
           registration_number, father_name, aadhar_number,
           profile_image_url, aadhaar_front_url, aadhaar_back_url,
-          locker_id, discount, changed_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, NOW())`,
+          locker_id, discount, preparing_for, changed_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, NOW())`,
         [
           studentId, name, email || null, phone, address || null,
           membershipStartFormatted, membershipEndFormatted, status,
@@ -112,7 +113,7 @@ module.exports = (pool) => {
           null, null, branch_id, // seat_id, shift_id
           registration_number || null, father_name || null, aadhar_number || null,
           profile_image_url || null, aadhaar_front_url || null, aadhaar_back_url || null,
-          null, discount, // locker_id
+          null, discount, preparing_for || null, // locker_id, preparing_for
         ]
       );
   
@@ -424,6 +425,7 @@ module.exports = (pool) => {
         security_money: parseFloat(studentData.security_money || 0),
         discount: parseFloat(studentData.discount || 0),
         remark: studentData.remark || '',
+        preparing_for: studentData.preparing_for || '',
         profile_image_url: studentData.profile_image_url || '',
         aadhaar_front_url: studentData.aadhaar_front_url || '',
         aadhaar_back_url: studentData.aadhaar_back_url || '',
@@ -505,7 +507,7 @@ module.exports = (pool) => {
       const {
         name, email, phone, address, branch_id, membership_start, membership_end,
         total_fee, amount_paid, shift_ids, seat_id, cash, online, security_money, remark, profile_image_url,
-        registration_number, father_name, aadhar_number, locker_id, aadhaar_front_url, aadhaar_back_url, discount
+        registration_number, father_name, aadhar_number, locker_id, aadhaar_front_url, aadhaar_back_url, discount, preparing_for
       } = req.body;
 
       console.log('Received request body for POST /students:', req.body);
@@ -613,15 +615,16 @@ module.exports = (pool) => {
           name, email, phone, address, branch_id, membership_start, membership_end,
           total_fee, amount_paid, due_amount, cash, online, security_money, remark, 
           profile_image_url, aadhaar_front_url, aadhaar_back_url, status, locker_id,
-          registration_number, father_name, aadhar_number, discount, is_active, created_at
+          registration_number, father_name, aadhar_number, discount, is_active, created_at, preparing_for
         ) VALUES (
-          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, NOW()
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, NOW(), $25
         ) RETURNING *`,
         [
           name, email, phone, address, branchIdNum, membership_start, membership_end,
           feeValue, paidValue, dueAmount, cashValue, onlineValue, securityMoneyValue, remark || null, 
           profile_image_url || null, aadhaar_front_url || null, aadhaar_back_url || null, status, lockerIdNum,
-          registration_number || null, father_name || null, aadhar_number || null, discountValue, true
+          registration_number || null, father_name || null, aadhar_number || null, discountValue, true,
+          preparing_for || null
         ]
       );
       const student = result.rows[0];
@@ -704,7 +707,7 @@ module.exports = (pool) => {
         name, email, phone, address, branch_id, membership_start, membership_end,
         total_fee, amount_paid, shift_ids, seat_id, cash, online, security_money, remark,
         registration_number, father_name, aadhar_number, profile_image_url, locker_id,
-        aadhaar_front_url, aadhaar_back_url, discount
+        aadhaar_front_url, aadhaar_back_url, discount, preparing_for
       } = req.body;
       
       if (!name || !phone || !address || !branch_id || !membership_start || !membership_end) {
@@ -747,8 +750,8 @@ module.exports = (pool) => {
              amount_paid = $9, due_amount = $10, cash = $11, online = $12, 
              security_money = $13, remark = $14, status = $15,
              registration_number = $16, father_name = $17, aadhar_number = $18, 
-             profile_image_url = $19, locker_id = $20, aadhaar_front_url = $21, aadhaar_back_url = $22, discount = $23
-         WHERE id = $24
+             profile_image_url = $19, locker_id = $20, aadhaar_front_url = $21, aadhaar_back_url = $22, discount = $23, preparing_for = $24
+         WHERE id = $25
          RETURNING *`,
         [
           name, email, phone, address, branch_id, membership_start, membership_end,
@@ -756,6 +759,7 @@ module.exports = (pool) => {
           security_money, remark || null, status, 
           registration_number || null, father_name || null, aadhar_number || null, 
           profile_image_url || null, lockerIdNum, aadhaar_front_url || null, aadhaar_back_url || null, discountValue,
+          preparing_for || null,
           id
         ]
       );
@@ -792,18 +796,19 @@ module.exports = (pool) => {
              total_fee = $8, amount_paid = $9, due_amount = $10, cash = $11, online = $12, security_money = $13,
              remark = $14, seat_id = $15, shift_id = $16, branch_id = $17, registration_number = $18,
              father_name = $19, aadhar_number = $20, profile_image_url = $21, 
-             aadhaar_front_url = $22, aadhaar_back_url = $23, locker_id = $24, discount = $25, changed_at = NOW()
-         WHERE id = (SELECT id FROM student_membership_history WHERE student_id = $26 ORDER BY id DESC LIMIT 1)`,
-         [
-           updatedStudent.name, updatedStudent.email, updatedStudent.phone, updatedStudent.address,
-           updatedStudent.membership_start, updatedStudent.membership_end, updatedStudent.status,
-           updatedStudent.total_fee, updatedStudent.amount_paid, updatedStudent.due_amount,
-           updatedStudent.cash, updatedStudent.online, updatedStudent.security_money, updatedStudent.remark || '',
-           seatIdNum, firstShiftId, updatedStudent.branch_id, updatedStudent.registration_number,
-           updatedStudent.father_name, updatedStudent.aadhar_number, updatedStudent.profile_image_url || '',
-           updatedStudent.aadhaar_front_url || '', updatedStudent.aadhaar_back_url || '', lockerIdNum, updatedStudent.discount,
-           id
-         ]
+             aadhaar_front_url = $22, aadhaar_back_url = $23, locker_id = $24, discount = $25, preparing_for = $26, changed_at = NOW()
+         WHERE id = (SELECT id FROM student_membership_history WHERE student_id = $27 ORDER BY id DESC LIMIT 1)`,
+          [
+            updatedStudent.name, updatedStudent.email, updatedStudent.phone, updatedStudent.address,
+            updatedStudent.membership_start, updatedStudent.membership_end, updatedStudent.status,
+            updatedStudent.total_fee, updatedStudent.amount_paid, updatedStudent.due_amount,
+            updatedStudent.cash, updatedStudent.online, updatedStudent.security_money, updatedStudent.remark || '',
+            seatIdNum, firstShiftId, updatedStudent.branch_id, updatedStudent.registration_number,
+            updatedStudent.father_name, updatedStudent.aadhar_number, updatedStudent.profile_image_url || '',
+            updatedStudent.aadhaar_front_url || '', updatedStudent.aadhaar_back_url || '', lockerIdNum, updatedStudent.discount,
+            updatedStudent.preparing_for || '',
+            updatedStudent.id
+          ]
       );
       
       await client.query('COMMIT');
@@ -889,7 +894,7 @@ module.exports = (pool) => {
     }
   });
 
-router.post('/:id/renew', checkAdminOrStaff, async (req, res) => {
+  router.post('/:id/renew', checkAdminOrStaff, async (req, res) => {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -899,7 +904,7 @@ router.post('/:id/renew', checkAdminOrStaff, async (req, res) => {
         name, registration_number, father_name, aadhar_number, address,
         membership_start, membership_end, email, phone, branch_id,
         shift_ids, seat_id, total_fee, cash, online, security_money, remark,
-        profile_image_url, aadhaar_front_url, aadhaar_back_url, locker_id, discount
+        profile_image_url, aadhaar_front_url, aadhaar_back_url, locker_id, discount, preparing_for
       } = req.body;
 
       if (!membership_start || !membership_end || !name || !phone || !branch_id) {
@@ -938,41 +943,44 @@ router.post('/:id/renew', checkAdminOrStaff, async (req, res) => {
         const lockerCheck = await client.query('SELECT is_assigned, student_id FROM locker WHERE id = $1', [lockerIdNum]);
         if (lockerCheck.rows.length === 0) {
           await client.query('ROLLBACK');
-          return res.status(400).json({ message: `locker with ID ${lockerIdNum} does not exist` });
+          return res.status(400).json({ message: `Locker with ID ${lockerIdNum} does not exist` });
         }
         if (lockerCheck.rows[0].is_assigned && lockerCheck.rows[0].student_id != id) {
           await client.query('ROLLBACK');
-          return res.status(400).json({ message: `locker with ID ${lockerIdNum} is already assigned to another student` });
+          return res.status(400).json({ message: `Locker with ID ${lockerIdNum} is already assigned to another student` });
         }
       }
-
-      await client.query('UPDATE locker SET is_assigned = false, student_id = NULL WHERE student_id = $1', [id]);
-
+      
+      // ✅ FIX: The missing UPDATE query is added here.
       const upd = await client.query(
-        `UPDATE students
-         SET name = $1, registration_number = $2, father_name = $3, aadhar_number = $4, address = $5,
-             membership_start = $6, membership_end = $7, status = $8,
-             email = $9, phone = $10, branch_id = $11,
-             total_fee = $12, amount_paid = $13, due_amount = $14,
-             cash = $15, online = $16, security_money = $17, remark = $18,
-             profile_image_url = $19, aadhaar_front_url = $20, aadhaar_back_url = $21, locker_id = $22, discount = $23
-         WHERE id = $24
+        `UPDATE students 
+         SET name = $1, email = $2, phone = $3, address = $4, branch_id = $5,
+             membership_start = $6, membership_end = $7, total_fee = $8, 
+             amount_paid = $9, due_amount = $10, cash = $11, online = $12, 
+             security_money = $13, remark = $14, status = $15,
+             registration_number = $16, father_name = $17, aadhar_number = $18, 
+             profile_image_url = $19, aadhaar_front_url = $20, aadhaar_back_url = $21, 
+             locker_id = $22, discount = $23, is_active = true, preparing_for = $24
+         WHERE id = $25
          RETURNING *`,
         [
-          name, registration_number, father_name, aadhar_number, address,
-          membership_start, membership_end, status,
-          email, phone, branchIdNum,
-          feeValue, amount_paid, due_amount,
-          cashValue, onlineValue, securityMoneyValue, remark || null,
-          profile_image_url || null, aadhaar_front_url || null, aadhaar_back_url || null, lockerIdNum, discountValue,
+          name, email, phone, address, branchIdNum,
+          membership_start, membership_end, feeValue,
+          amount_paid, due_amount, cashValue, onlineValue,
+          securityMoneyValue, remark || null, status,
+          registration_number || null, father_name || null, aadhar_number || null,
+          profile_image_url || null, aadhaar_front_url || null, aadhaar_back_url || null,
+          lockerIdNum, discountValue, preparing_for || null,
           id
         ]
       );
-
+      
       if (upd.rows.length === 0) {
         await client.query('ROLLBACK');
-        return res.status(404).json({ message: 'Student not found' });
+        return res.status(404).json({ message: 'Student not found for renewal.' });
       }
+
+      // This line now works correctly as `upd` is defined.
       const updated = upd.rows[0];
 
       if (lockerIdNum) {
@@ -994,7 +1002,6 @@ router.post('/:id/renew', checkAdminOrStaff, async (req, res) => {
         }
       }
 
-      // FIX: Added $26 to the VALUES clause to match the number of columns
       await client.query(
         `INSERT INTO student_membership_history (
           student_id, name, email, phone, address,
@@ -1004,8 +1011,8 @@ router.post('/:id/renew', checkAdminOrStaff, async (req, res) => {
           seat_id, shift_id, branch_id,
           registration_number, father_name, aadhar_number,
           profile_image_url, aadhaar_front_url, aadhaar_back_url,
-          locker_id, discount, changed_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, NOW())`,
+          locker_id, discount, changed_at, preparing_for
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, NOW(), $27)`,
         [
           updated.id, updated.name, updated.email, updated.phone, updated.address,
           updated.membership_start, updated.membership_end, updated.status,
@@ -1014,7 +1021,8 @@ router.post('/:id/renew', checkAdminOrStaff, async (req, res) => {
           seatIdNum, firstShiftId, branchIdNum,
           updated.registration_number, updated.father_name, updated.aadhar_number,
           updated.profile_image_url || '', updated.aadhaar_front_url || '', updated.aadhaar_back_url || '',
-          lockerIdNum, updated.discount
+          lockerIdNum, updated.discount,
+          updated.preparing_for || null
         ]
       );
 
